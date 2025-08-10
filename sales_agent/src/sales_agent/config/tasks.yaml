@@ -7,11 +7,16 @@ research_task:
     A list with 10 bullet points of the most relevant information about {topic}
   agent: researcher
 
-reporting_task:
+newsletter_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Create a newsletter about {topic} that highlights the key developments and insights.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A well-structured newsletter that includes an introduction, key points, and a conclusion.
+  agent: newsletter_writer
+
+newsletter_edit_task:
+  description: >
+    Review and edit the newsletter about {topic} to ensure clarity and engagement.
+  expected_output: >
+    A polished version of the newsletter with improvements in structure, clarity, and engagement.
+  agent: newsletter_editor
