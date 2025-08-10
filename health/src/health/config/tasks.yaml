@@ -1,12 +1,12 @@
 demographic_research:
   description: >
     Research nutritional needs for an individual with the following demographics:
-      - Age: {user_info['age']}
-      - Gender: {user_info['gender']}
-      - Height: {user_info['height']}
-      - Weight: {user_info['weight']}
-      - Activity Level: {user_info['activity_level']}
-      - Goals: {user_info['goals']}
+      - Age: {age}
+      - Gender: {gender}
+      - Height: {height}
+      - Weight: {weight}
+      - Activity Level: {activity_level}
+      - Goals: {goals}
       
     Provide detailed nutritional requirements including:
       1. Caloric needs (basal and adjusted for activity)
@@ -21,10 +21,10 @@ demographic_research:
 medical_analysis:
   description: >
     Analyze the following medical conditions and medications, then provide dietary modifications:
-      - Medical Conditions: {user_info['medical_conditions']}
-      - Medications: {user_info['medications']}
-      - Allergies/Intolerances: {user_info['allergies']}
-      
+      - Medical Conditions: {medical_conditions}
+      - Medications: {medications}
+      - Allergies/Intolerances: {allergies}
+
     Consider the baseline nutritional profile and provide:
       1. Specific nutrients to increase or limit based on each condition
       2. Food-medication interactions to avoid
@@ -38,11 +38,11 @@ medical_analysis:
 diet_plan:
   description: >
     Create a detailed, practical diet plan incorporating all information:
-      - User's Food Preferences: {user_info['food_preferences']}
-      - Cooking Skills/Time: {user_info['cooking_ability']}
-      - Budget Constraints: {user_info['budget']}
-      - Cultural/Religious Factors: {user_info['cultural_factors']}
-      
+      - User's Food Preferences: {food_preferences}
+      - Cooking Skills/Time: {cooking_ability}
+      - Budget Constraints: {budget}
+      - Cultural/Religious Factors: {cultural_factors}
+
     Develop a comprehensive nutrition plan that includes:
       1. Specific foods to eat daily, weekly, and occasionally with portion sizes
       2. A 7-day meal plan with specific meals and recipes
