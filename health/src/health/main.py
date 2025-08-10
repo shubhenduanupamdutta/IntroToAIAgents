@@ -1,8 +1,12 @@
 #!/usr/bin/env python
-import sys
+"""Codes to run the Nutritional Plan crew."""
+
+# ruff: noqa: BLE001, ERA001
+
 import warnings
 
-from datetime import datetime
+import streamlit as st
+from crewai import CrewOutput
 
 from health.crew import Health
 
@@ -13,56 +17,53 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 # Replace with inputs you want to test with, it will automatically
 # interpolate any tasks and agents information
 
-def run():
-    """
-    Run the crew.
-    """
-    inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
-    }
-    
+
+def run(user_info: dict[str, str]) -> CrewOutput | None:
+    """Run the Nutritionist Advisor Crew."""
+    inputs = {"user_info": user_info}
+
     try:
-        Health().crew().kickoff(inputs=inputs)
+        with st.spinner(
+            "Our nutrition team is creating your personalized plan. This my take a few minutes...",
+        ):
+            result = Health().crew().kickoff(inputs=inputs)
     except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+        msg = f"An error occurred while running the crew: {e}"
+        st.error(msg)
+        return None
+    else:
+        return result
 
 
-def train():
-    """
-    Train the crew for a given number of iterations.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        'current_year': str(datetime.now().year)
-    }
-    try:
-        Health().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+# def train() -> None:
+#     """Train the crew for a given number of iterations."""
+#     inputs = {"topic": "AI LLMs", "current_year": str(datetime.now().year)}
+#     try:
+#         Health().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
 
-    except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
+#     except Exception as e:
+#         raise Exception(f"An error occurred while training the crew: {e}")
 
-def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
-    try:
-        Health().crew().replay(task_id=sys.argv[1])
 
-    except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
+# def replay():
+#     """
+#     Replay the crew execution from a specific task.
+#     """
+#     try:
+#         Health().crew().replay(task_id=sys.argv[1])
 
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        "current_year": str(datetime.now().year)
-    }
-    
-    try:
-        Health().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
+#     except Exception as e:
+#         raise Exception(f"An error occurred while replaying the crew: {e}")
 
-    except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")
+
+# def test():
+#     """
+#     Test the crew execution and returns the results.
+#     """
+#     inputs = {"topic": "AI LLMs", "current_year": str(datetime.now().year)}
+
+#     try:
+#         Health().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
+
+#     except Exception as e:
+#         raise Exception(f"An error occurred while testing the crew: {e}")
