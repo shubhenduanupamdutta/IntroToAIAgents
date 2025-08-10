@@ -62,7 +62,25 @@ Let's create wonders together with the power and simplicity of crewAI.
 
 ---
 
-### For search feature I am using Firecrawl which is natively supported
+### For search feature I am using SerperDevTool
 
-For this you need to get API key from [Firecrawl](https://firecrawl.dev)
-and set it in your `.env` file as `FIRECRAWL_API_KEY`
+For this you need to get API key from [Serper](https://serper.dev)
+and set it in your `.env` file as `SERPER_API_KEY`
+
+Then you can create a search tool and pass it to your agent:
+
+```python
+search_tool = SerperDevTool()
+
+# ... rest of code
+
+    @agent
+    def researcher(self) -> Agent:
+        """Return the researcher agent."""
+        return Agent(
+            config=self.agents_config["researcher"],  # type: ignore[index]
+            verbose=True,
+            llm=llm,
+            tools=[search_tool],  # Add the search tool to the agent
+        )
+```
