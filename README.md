@@ -18,7 +18,7 @@ uv tool install crewai
 
 If you encounter a `PATH` warning
 
-```
+```bash
 uv tool update-shell
 ```
 
@@ -126,3 +126,17 @@ newsletter_edit_task:
     A polished version of the newsletter with improvements in structure, clarity, and engagement.
   agent: newsletter_editor
 ```
+
+#### .env
+
+##### Location: `.env`
+
+`.env` file contains environment variables that are used to configure the application. You can define variables such as API keys, database connection strings, and other settings that may vary between different environments (e.g., development, testing, production). In our case our `MODEL` and `OPENAI_API_KEY` are defined here.
+
+#### main.py
+
+##### Location: `src\sales_agent\main.py`
+
+Entry point for the sales agent application. This file is usually used to initializes the application, loads configuration settings, and starts the main event loop. In our case, this will run the entire project for you. It already has some boilerplate code to get you started.
+
+We can define what should happen, when we run, train, replay or test the crew.
