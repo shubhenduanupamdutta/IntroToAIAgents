@@ -246,3 +246,9 @@ I am using `ollama` with `llama3.1:1.8b` since I am working on lower capacity ha
   crewai install
   crewai run
   ```
+
+---
+
+## Other Sample Projects
+
+### [YouTube Agents](./youtube_agents/YouTubeAgents.md)

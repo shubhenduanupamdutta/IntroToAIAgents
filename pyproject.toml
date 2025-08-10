@@ -4,6 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "crewai[tools]>=0.157.0",
+    "firecrawl-py>=2.16.5",
 ]
 
 [tool.uv.workspace]
@@ -11,4 +12,5 @@ members = [
     "crew_ai_project",
     "sales_agent",
     "default_project",
+    "youtube_agents",
 ]
