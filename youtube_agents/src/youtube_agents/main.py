@@ -1,8 +1,11 @@
 #!/usr/bin/env python
+
+"""Main entry point for the YoutubeAgents application."""
+
+# ruff: noqa: BLE001, B904, TRY002
 import sys
 import warnings
-
-from datetime import datetime
+from datetime import UTC, datetime
 
 from youtube_agents.crew import YoutubeAgents
 
@@ -13,56 +16,59 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 # Replace with inputs you want to test with, it will automatically
 # interpolate any tasks and agents information
 
-def run():
-    """
-    Run the crew.
-    """
-    inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
-    }
-    
+
+def run() -> None:
+    """Run the crew."""
+    user_input = sys.argv[1] if len(sys.argv) > 1 else None
+
+    if user_input:
+        inputs = {"topic": user_input, "current_year": str(datetime.now(UTC).year)}
+    else:
+        inputs = {"topic": "AI LLMs", "current_year": str(datetime.now(UTC).year)}
+
     try:
         YoutubeAgents().crew().kickoff(inputs=inputs)
     except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+        msg = f"An error occurred while running the crew: {e}"
+        raise Exception(msg)
 
 
-def train():
-    """
-    Train the crew for a given number of iterations.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        'current_year': str(datetime.now().year)
-    }
+def train() -> None:
+    """Train the crew for a given number of iterations."""
+    inputs = {"topic": "AI LLMs", "current_year": str(datetime.now(UTC).year)}
     try:
-        YoutubeAgents().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+        YoutubeAgents().crew().train(
+            n_iterations=int(sys.argv[1]),
+            filename=sys.argv[2],
+            inputs=inputs,
+        )
 
     except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
+        msg = f"An error occurred while training the crew: {e}"
+        raise Exception(msg)
 
-def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
+
+def replay() -> None:
+    """Replay the crew execution from a specific task."""
     try:
         YoutubeAgents().crew().replay(task_id=sys.argv[1])
 
     except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
+        msg = f"An error occurred while replaying the crew: {e}"
+        raise Exception(msg)
 
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        "current_year": str(datetime.now().year)
-    }
-    
+
+def test() -> None:
+    """Test the crew execution and returns the results."""
+    inputs = {"topic": "AI LLMs", "current_year": str(datetime.now(UTC).year)}
+
     try:
-        YoutubeAgents().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
+        YoutubeAgents().crew().test(
+            n_iterations=int(sys.argv[1]),
+            eval_llm=sys.argv[2],
+            inputs=inputs,
+        )
 
     except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")
+        msg = f"An error occurred while testing the crew: {e}"
+        raise Exception(msg)
