@@ -33,7 +33,7 @@ medical_analysis:
       5. Foods to strictly avoid
   expected_output: >
     A detailed analysis of medical nutrition therapy adjustments
-      agent: medical_specialist
+  agent: medical_specialist
 
 diet_plan:
   description: >
