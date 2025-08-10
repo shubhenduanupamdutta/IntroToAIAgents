@@ -1,12 +1,21 @@
 """Setup crew, agents and tasks for youtube agents."""
 
-from crewai import Agent, Crew, Process, Task
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
+from crewai_tools import SerperDevTool
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
+
+# Define llm
+llm = LLM(
+    model="ollama/llama3.1:8b",  # Specify the model you want to use
+    api_base="http://localhost:11434",  # Ollama API base URL
+)
+
+search_tool = SerperDevTool()
 
 
 @CrewBase
@@ -24,17 +33,11 @@ class YoutubeAgents:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
     def researcher(self) -> Agent:
-        """Creates and returns the researcher agent."""
+        """Return the researcher agent."""
         return Agent(
             config=self.agents_config["researcher"],  # type: ignore[index]
             verbose=True,
-        )
-
-    @agent
-    def reporting_analyst(self) -> Agent:
-        return Agent(
-            config=self.agents_config["reporting_analyst"],  # type: ignore[index]
-            verbose=True,
+            llm=llm,
         )
 
     # To learn more about structured task outputs,
@@ -42,20 +45,14 @@ class YoutubeAgents:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
     @task
     def research_task(self) -> Task:
+        """Return the research task for the YoutubeAgents crew."""
         return Task(
             config=self.tasks_config["research_task"],  # type: ignore[index]
         )
 
-    @task
-    def reporting_task(self) -> Task:
-        return Task(
-            config=self.tasks_config["reporting_task"],  # type: ignore[index]
-            output_file="report.md",
-        )
-
     @crew
     def crew(self) -> Crew:
-        """Creates the YoutubeAgents crew"""
+        """Create the YoutubeAgents crew."""
         # To learn how to add knowledge sources to your crew, check out the documentation:
         # https://docs.crewai.com/concepts/knowledge#what-is-knowledge
 
@@ -64,5 +61,6 @@ class YoutubeAgents:
             tasks=self.tasks,  # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
-            # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
+            # process=Process.hierarchical, # In case you wanna use that instead  # noqa: ERA001
+            # https://docs.crewai.com/how-to/Hierarchical/
         )
