@@ -140,3 +140,18 @@ newsletter_edit_task:
 Entry point for the sales agent application. This file is usually used to initializes the application, loads configuration settings, and starts the main event loop. In our case, this will run the entire project for you. It already has some boilerplate code to get you started.
 
 We can define what should happen, when we run, train, replay or test the crew.
+
+#### crew.py
+
+##### Location: `src\sales_agent\crew.py`
+
+Defines the agents and tasks that make up the sales process. This file is responsible for orchestrating the interactions between different agents and tasks, ensuring that the sales process runs smoothly and efficiently.
+
+Here we process the config in `agents.yaml` and `tasks.yaml` and while building the agent, we provide these config to them. And build the crew out of all the agents.
+
+#### tools/
+
+##### Location: `src\sales_agent\tools\`
+
+Here is where you can define your custom tools which can be used by the agents in your crew.
+An example custom tool could be a web scraper that gathers information from specific websites or a data analysis tool that processes and visualizes sales data.
