@@ -155,3 +155,23 @@ Here we process the config in `agents.yaml` and `tasks.yaml` and while building 
 
 Here is where you can define your custom tools which can be used by the agents in your crew.
 An example custom tool could be a web scraper that gathers information from specific websites or a data analysis tool that processes and visualizes sales data.
+
+#### Knowledge
+
+##### Location: `knowledge\`
+
+Essentially this maintains some external knowledge, this can be your FAQs, documentation or any other relevant information that can assist the agents in their tasks.
+
+### 3. Run the project
+
+To run the project, first you need to run the following at the root of your crew project
+
+```bash
+crew install
+```
+
+And then you can run your project
+
+```bash
+crew run
+```
