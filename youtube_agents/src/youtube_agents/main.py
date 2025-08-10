@@ -19,10 +19,9 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 def run() -> None:
     """Run the crew."""
-    user_input = sys.argv[1] if len(sys.argv) > 1 else None
-
-    if user_input:
-        inputs = {"topic": user_input, "current_year": str(datetime.now(UTC).year)}
+    research_topic = input("What is the research topic? ")
+    if research_topic:
+        inputs = {"topic": research_topic, "current_year": str(datetime.now(UTC).year)}
     else:
         inputs = {"topic": "AI LLMs", "current_year": str(datetime.now(UTC).year)}
 

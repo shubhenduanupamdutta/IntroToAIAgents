@@ -38,6 +38,7 @@ class YoutubeAgents:
             config=self.agents_config["researcher"],  # type: ignore[index]
             verbose=True,
             llm=llm,
+            tools=[search_tool],  # Add the search tool to the agent
         )
 
     # To learn more about structured task outputs,
