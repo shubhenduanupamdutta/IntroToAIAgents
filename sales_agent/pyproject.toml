@@ -1,0 +1,23 @@
+[project]
+name = "sales_agent"
+version = "0.1.0"
+description = "sales_agent using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.157.0,<1.0.0"
+]
+
+[project.scripts]
+sales_agent = "sales_agent.main:run"
+run_crew = "sales_agent.main:run"
+train = "sales_agent.main:train"
+replay = "sales_agent.main:replay"
+test = "sales_agent.main:test"
+
+[build-system]
+requires = ["uv_build>=0.8.7,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.crewai]
+type = "crew"
