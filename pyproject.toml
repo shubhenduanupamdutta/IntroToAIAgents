@@ -13,4 +13,5 @@ members = [
     "sales_agent",
     "default_project",
     "youtube_agents",
+    "health",
 ]
