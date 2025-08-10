@@ -9,5 +9,6 @@ dependencies = [
 [tool.uv.workspace]
 members = [
     "crew_ai_project",
-    "sales_agent"
+    "sales_agent",
+    "default_project",
 ]

@@ -175,3 +175,74 @@ And then you can run your project
 ```bash
 crew run
 ```
+
+---
+
+## Integrating Open Source LLM running locally
+
+---
+
+I am using `ollama` with `llama3.1:1.8b` since I am working on lower capacity hardware.
+
+- Download and Install Ollama on platform from [ollama](https://ollama.com/)
+- Install \
+
+  ```bash
+  ollama run llama3.1:8b
+  ```
+
+  This will install and run the model locally.
+
+- Update the `.env` file in your project root to use the local model
+
+  ```bash
+  MODEL=ollama/llama3.1
+  API_BASE=http://localhost:11434
+  ```
+
+- Update the `crew.py` file to use the local model
+
+  ```python
+  llm = LLM(
+      model="ollama/llama3.1:8b",  # Specify the model you want to use
+      api_base="http://localhost:11434",  # Ollama API base URL
+  )
+
+  @CrewBase
+  class DefaultProject:
+      """DefaultProject crew"""
+
+      agents: List[BaseAgent]
+      tasks: List[Task]
+
+      # Learn more about YAML configuration files here:
+      # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
+      # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
+
+      # If you would like to add tools to your agents, you can learn more about it here:
+      # https://docs.crewai.com/concepts/agents#agent-tools
+      @agent
+      def researcher(self) -> Agent:
+          return Agent(
+              config=self.agents_config["researcher"],  # type: ignore[index]
+              verbose=True,
+              llm=llm,
+          )
+
+      @agent
+      def reporting_analyst(self) -> Agent:
+          return Agent(
+              config=self.agents_config["reporting_analyst"],  # type: ignore[index]
+              verbose=True,
+              llm=llm,
+          )
+  ```
+
+- Now you can run the crew with the following command:
+
+  You need to make sure that ollama is running with llama3.1:8b
+
+  ```bash
+  crewai install
+  crewai run
+  ```
