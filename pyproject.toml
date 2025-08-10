@@ -5,6 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "crewai[tools]>=0.157.0",
     "firecrawl-py>=2.16.5",
+    "streamlit>=1.48.0",
 ]
 
 [tool.uv.workspace]
