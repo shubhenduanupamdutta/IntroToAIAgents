@@ -5,6 +5,7 @@ import os
 import dotenv
 import streamlit as st
 
+from health.data_schemas import UserInfo
 from health.main import run
 
 dotenv.load_dotenv()
@@ -116,21 +117,21 @@ def app() -> None:
             )
 
     # Collect all user information
-    user_info = {
-        "age": age,
-        "gender": gender,
-        "height": height,
-        "weight": weight,
-        "activity_level": activity_level,
-        "goals": ", ".join(goals) if goals else "General health improvement",
-        "medical_conditions": medical_conditions or "None reported",
-        "medications": medications or "None reported",
-        "allergies": allergies or "None reported",
-        "food_preferences": food_preferences or "No specific preferences",
-        "cooking_ability": cooking_ability,
-        "budget": budget,
-        "cultural_factors": cultural_factors or "No specific factors",
-    }
+    user_info = UserInfo(
+        age=age,
+        gender=gender,
+        height=height,
+        weight=weight,
+        activity_level=activity_level,
+        goals=", ".join(goals) if goals else "General health improvement",
+        medical_conditions=medical_conditions or "None reported",
+        medications=medications or "None reported",
+        allergies=allergies or "None reported",
+        food_preferences=food_preferences or "No specific preferences",
+        cooking_ability=cooking_ability,
+        budget=budget,
+        cultural_factors=cultural_factors or "No specific factors",
+    )
 
     # Check if API keys are present
     if not os.getenv("SERPER_API_KEY"):

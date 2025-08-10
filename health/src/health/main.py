@@ -9,6 +9,7 @@ import streamlit as st
 from crewai import CrewOutput
 
 from health.crew import Health
+from health.data_schemas import UserInfo
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
@@ -18,9 +19,9 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 # interpolate any tasks and agents information
 
 
-def run(user_info: dict[str, str]) -> CrewOutput | None:
+def run(user_info: UserInfo) -> CrewOutput | None:
     """Run the Nutritionist Advisor Crew."""
-    inputs = {"user_info": user_info}
+    inputs = user_info.model_dump()
 
     try:
         with st.spinner(
