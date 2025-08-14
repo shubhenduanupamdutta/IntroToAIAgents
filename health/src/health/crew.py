@@ -1,5 +1,9 @@
 """Healthy Diet Plans - Crew, Agents and Tasks."""
 
+# ruff: noqa: ERA001
+
+import os
+
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
@@ -13,9 +17,18 @@ load_dotenv()
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
 # Define llm
+
+# # Locally running
+# llm = LLM(
+#     model="ollama/llama3.1:8b",  # Specify the model you want to use
+#     api_base="http://localhost:11434",  # Ollama API base URL
+# )
+
+# With OpenRouter
 llm = LLM(
-    model="ollama/llama3.1:8b",  # Specify the model you want to use
-    api_base="http://localhost:11434",  # Ollama API base URL
+    api_base="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPEN_ROUTER_KEY"),
+    model="openai/gpt-oss-120b",
 )
 
 search_tool = SerperDevTool()
